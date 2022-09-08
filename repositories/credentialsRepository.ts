@@ -20,7 +20,7 @@ export async function findByIdAndUser(id:number,userId:number){
 }
 
 export async function deleteById(id:number){
-    return prisma.credentials.delete({
+    await prisma.credentials.delete({
         where:{id}
     })
 }

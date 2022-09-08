@@ -11,3 +11,14 @@ export const schemaCredentials=joi.object({
     username:joi.string().required(),
     title:joi.string().required()
 })
+
+export const schemaNotes=joi.object({
+    text:joi.string().max(1000).required(),
+    title:joi.string().max(50).required()
+})
+
+export const schemaWifi=joi.object({
+    name:joi.string().required(),
+    password:joi.string().required(),
+    title:joi.string().required()
+})

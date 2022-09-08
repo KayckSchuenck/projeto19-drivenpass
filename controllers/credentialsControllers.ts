@@ -1,13 +1,11 @@
 import { Request,Response } from "express";
 import { deleteCredentialService, getCredentialService, postCredentialService } from "../services/credentialsService.js";
 
-
-
 export async function postCredentials(req:Request, res:Response) {
     const {title,username,url,password}=req.body
     const {userId}=res.locals
 
-    await postCredentialService(title,username,url,password,userId)
+    await postCredentialService(title,username,url,password,Number(userId))
     res.sendStatus(201)
 }
 

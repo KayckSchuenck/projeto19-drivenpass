@@ -8,6 +8,6 @@ const credentialsRouter=Router();
 
 credentialsRouter.post('/credentials',schemaValidateMiddleware(schemaLoginSignUp),validateToken,postCredentials)
 credentialsRouter.get('/credentials/:id?',validateToken,getCredentials)
-credentialsRouter.delete('/credentials/:id',schemaValidateMiddleware(schemaLoginSignUp),validateToken,deleteCredentials)
+credentialsRouter.delete('/credentials/:id',validateToken,deleteCredentials)
 
 export default credentialsRouter

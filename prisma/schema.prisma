@@ -13,6 +13,8 @@ model users {
   password    String
   createdAt   DateTime      @default(now())
   credentials credentials[]
+  notes       notes[]
+  wifis       wifis[]
 }
 
 model credentials {
@@ -21,6 +23,25 @@ model credentials {
   password  String
   url       String
   username  String
+  userId    Int?
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  users     users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model notes {
+  id        Int       @id @default(autoincrement())
+  title     String    @db.VarChar(50)
+  text      String    @db.VarChar(1000)
+  userId    Int?
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  users     users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model wifis {
+  id        Int       @id @default(autoincrement())
+  title     String
+  name      String    
+  password  String    
   userId    Int?
   createdAt DateTime? @default(now()) @db.Timestamp(6)
   users     users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)

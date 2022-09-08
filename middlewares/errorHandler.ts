@@ -1,10 +1,19 @@
 import { Request,Response,NextFunction } from "express";
 
-export default function errorHandlingMiddleware(error:any, req:Request, res:Response, next:NextFunction) {
-	if (error.type === "IncorrectData") return res.status(422).send(error.message)
-	if (error.type === "NotFound") return res.status(404).send(error.message)
-	if (error.type === "Conflict") return res.status(409).send(error.message)
-	if (error.type === "Unauthorized") return res.status(401).send(error.message)
-	console.log(error)
-	return res.sendStatus(500);
+const ERRORS = {
+  unauthorized: 401,
+  conflict: 409,
+  notFound: 404,
+  incorrectData:422
+};
+
+export default function errorHandlerMiddleware(error:any,req: Request,res: Response,next: NextFunction) {
+  
+  const {type,message} = error
+
+  let statusCode = ERRORS[type];
+  if (!statusCode) statusCode = 500; // any other types
+
+  console.log(error);
+  return res.status(statusCode).send(message); // internal server error
 }
