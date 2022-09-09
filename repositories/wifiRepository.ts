@@ -1,5 +1,5 @@
 import prisma from "../database.js";
-import { CreateWifiData } from "../types/types";
+import { CreateWifiData } from "../types/types.js";
 
 export async function findByIdAndTitle(userId:number,title:string) {
     return prisma.wifis.findFirst({

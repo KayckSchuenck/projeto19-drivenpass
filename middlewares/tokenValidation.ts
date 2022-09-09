@@ -8,11 +8,14 @@ export function validateToken(req : Request, res: Response, next: NextFunction){
     const token = authorization?.replace('Bearer ', '').trim() as string;
     if (!token) throw notFoundError('token')
 
-    const secretKey = process.env.JWT_SECRET;
+    const secretKey = process.env.JWT_SECRET as string
 
-    const {userId}=jwt.verify(token, secretKey)
-
-    res.locals.userId =userId
-    next();
+    jwt.verify(token, secretKey,(err,result)=>{
+        if(err) return res.status(401).send({err})
+        if(result) {
+            res.locals.id =result
+            next();
+        }
+    })    
 };
 

@@ -22,7 +22,7 @@ export async function getWifiService(id:number,userId:number){
 
         if(!wifi) throw {type:"unauthorized",message:"Credencial pertencente à outra pessoa ou não encontrada"}
 
-        return wifi
+        return {...wifi,password:cryptr.decrypt(wifi.password)}
     }
 }
 

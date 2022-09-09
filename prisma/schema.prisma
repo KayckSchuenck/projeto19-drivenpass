@@ -15,6 +15,7 @@ model users {
   credentials credentials[]
   notes       notes[]
   wifis       wifis[]
+  cards       cards[]
 }
 
 model credentials {
@@ -42,6 +43,19 @@ model wifis {
   title     String
   name      String    
   password  String    
+  userId    Int?
+  createdAt DateTime? @default(now()) @db.Timestamp(6)
+  users     users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cards {
+  id        Int       @id @default(autoincrement())
+  title     String
+  holderName      String    
+  password  String
+  cardNumber    String
+  cvv       String
+  expirationDate String    
   userId    Int?
   createdAt DateTime? @default(now()) @db.Timestamp(6)
   users     users?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
