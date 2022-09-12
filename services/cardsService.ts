@@ -17,7 +17,9 @@ export async function postCardService(title:string,cardNumber:string,holderName:
 export async function getCardService(id:number,userId:number){
     if(!id) {
         const cards=await findAll(userId)
-        return cards
+        return cards.map(card=>{
+            return {...card,password:cryptr.decrypt(card.password),cvv:cryptr.decrypt(card.cvv)}
+        })
     } 
 
     if(id) {

@@ -15,7 +15,9 @@ export async function postCredentialService(title:string,username:string,url:str
 export async function getCredentialService(id:number,userId:number){
     if(!id) {
         const credentials=await findAll(userId)
-        return credentials
+        return credentials.map(credential=>{
+            return {...credential,password:cryptr.decrypt(credential.password)}
+        })
     } 
 
     if(id) {

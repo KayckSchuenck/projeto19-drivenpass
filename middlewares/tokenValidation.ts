@@ -11,7 +11,7 @@ export function validateToken(req : Request, res: Response, next: NextFunction){
     const secretKey = process.env.JWT_SECRET as string
 
     jwt.verify(token, secretKey,(err,result)=>{
-        if(err) return res.status(401).send({err})
+        if(err) return res.status(401).send(err.message)
         if(result) {
             res.locals.id =result
             next();

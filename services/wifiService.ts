@@ -14,7 +14,9 @@ export async function postWifiService(name:string,password:string,title:string,u
 export async function getWifiService(id:number,userId:number){
     if(!id) {
         const wifis=await findAll(userId)
-        return wifis
+        return wifis.map(wifi=>{
+            return {...wifi,password:cryptr.decrypt(wifi.password)}
+        })
     } 
 
     if(id) {

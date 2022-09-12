@@ -27,7 +27,7 @@ export const schemaCard=joi.object({
     cardNumber:joi.string().required(),
     holderName:joi.string().required(),
     password:joi.string().required(),
-    cvv:joi.string().required(),
+    cvv:joi.string().length(3).required(),
     expirationDate:joi.string().required(),
     title:joi.string().required()
 })
